@@ -16,10 +16,56 @@ struct ToyBin {
     var bowlingPins: [BowlingPin] = []
     var musicCDs: [MusicCD] = []
     
-    // TODO: Implement all of the sort functions (lets organize this toy bin!)
     
- 
+    func sortShops(sorted by: () -> ()) -> [Ship] {
+        
+        var shipsSorted = ships.sorted { (age1: Ship, age2: Ship) -> Bool in
+            return age1.age > age2.age
+        }
+            return shipsSorted
+    }
+    
+    
+    mutating func sortBooks(sorted by: () -> ()) -> [Book] {
+        
+        books = books.sorted { $0.name < $1.name }
+            return books
+        }
+    
+    
+    mutating func sortBowlingPins(sorted by: () -> ()) -> [BowlingPin] {
+        
+        bowlingPins = bowlingPins.sorted { $0.color.rawValue < $1.color.rawValue }
+            return bowlingPins
+    }
+    
+    
+    mutating func sortMusicCDs(sorted by: () -> ()) -> [MusicCD] {
+        
+        var emptyMusic = [MusicCD]()
+        for (index,musicCd) in self.musicCDs.enumerated(){
+            if musicCd.name == "Drake"{
+                emptyMusic.append(musicCd)
+                self.musicCDs.remove(at: index)
+            }
+        }
+        emptyMusic += self.musicCDs.sorted{ (cd1: MusicCD, cd2: MusicCD) -> Bool in
+            return cd1.name < cd2.name
+        }
+        
+        return emptyMusic
+    }
+    
+    
+    mutating func changeColorOfAllPins(to color: Color) {
+        
+        bowlingPins = bowlingPins.map { $0.changeColor(color) }
+        
+    }
 }
+    
+
+
 
 
 struct Ship {
